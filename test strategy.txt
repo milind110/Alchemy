@@ -1,0 +1,8 @@
+1. Backed unit tests: 
+Mocks with junit. 
+
+2. Backend automated functional tests: 
+With fitness framework.
+
+3. Front-end: 
+Selenium?  
