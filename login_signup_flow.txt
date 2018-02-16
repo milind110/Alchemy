@@ -1,0 +1,27 @@
+New user signup:
+A POST on /users/signup 
+with username and hashed password in headers will create a new user(author) in our DB and returns OK. 
+
+Login:
+A PUT on /users/login will return a token (to be specific a JWT) which has to be used for all API calls when user is logged in. 
+All API calls which need user to be logged in will contain the JWT in a http header, like this: "Authorization: Bearer <token>".
+
+Logout:
+A PUT on /users/logout will inform the server that this token is no longer valid. 
+
+Refer to https://cdn-images-1.medium.com/max/1200/1*SSXUQJ1dWjiUrDoKaaiGLA.png to understand how this works. 
+
+"Keep me logged-in":
+If user doesn't logout then this token will expire after a predefined expiry time. This token, until it expires can be stored in 
+local storage on the client to provide "keep me logged in" functionality.
+
+
+Instead of implementing JWT code ourselves, we can use Auth0 or JJWT on backend and "jsrsasign" on fronted.
+
+ROADMAP:
+For more sophistication, we can use an authentication provider like Auth0 which provide their own "login box" on the client. This 
+provides "social connectors" like google, facebook also. THis also a good design as it brings modularity.
+
+References:
+https://auth0.com/docs/quickstart/webapp/java/01-login
+And https://github.com/auth0/java-jwt/blob/master/README.md
