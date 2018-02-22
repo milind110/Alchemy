@@ -5,4 +5,6 @@ Mocks with junit.
 With fitness framework.
 
 3. Front-end: 
-Selenium?  
+Jasmine.
+
+ 
