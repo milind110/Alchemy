@@ -21,13 +21,18 @@ paths:
       tags:
       - "blog"
       summary: "create a new blog"
-      description: ""
+      description: "User must be logged in to create a blog"
       operationId: "addBlog"
       consumes:
       - "application/json"
       produces:
       - "application/json"
       parameters:
+      - in: header
+        name: "Authorization: Bearer <token>"
+        description: " JWT returned on successful login"
+        required: true
+        type: string
       - in: "body"
         name: "body"
         description: "Blog object that needs to be created"
@@ -37,9 +42,8 @@ paths:
       responses:
         405:
           description: "Invalid input"
-#TODO: Need to add header for JWT here           
-#TODO Need to add JWT header here           
-#TODO Decide if we need a find by tag functionality.  
+#TODO need to add APIs to get blogs by pagination in guest mode. 
+#TODO need to add API to get all blogs for a logged in user 
   /blog/{blogId}:
     get:
       tags:
@@ -65,8 +69,6 @@ paths:
           description: "Invalid ID supplied"
         404:
           description: "Blog not found"
-#TODO Need to mention JWT as optional header for logged in / guest user mode       
-#optional param can be described as required: false, I guess. 
     put:
       tags:
       - "blog"
@@ -78,12 +80,23 @@ paths:
       produces:
       - "application/json"
       parameters:
+      - in: header
+        name: "Authorization: Bearer <token>"
+        description: " JWT returned on successful login"
+        required: true
+        type: string
       - in: "body"
         name: "body"
         description: "Blog object that needs to be updated"
         required: true
         schema:
           $ref: "#/definitions/Blog"
+      - name: "blogId"
+        in: "path"
+        description: "ID of blog to return"
+        required: true
+        type: "integer"
+        format: "int64"          
       responses:
         400:
           description: "Invalid ID supplied"
@@ -91,7 +104,7 @@ paths:
           description: "Blog not found"
         405:
           description: "Validation exception"
-#TODO this means that blog can't be updated without first getting the contents. Is this OK? 
+#TODO the above means that blog can't be updated without first getting the contents. Is this OK? 
     delete:
       tags:
       - "blog"
@@ -101,6 +114,11 @@ paths:
       produces:
       - "application/json"
       parameters:
+      - in: header
+        name: "Authorization: Bearer <token>"
+        description: " JWT returned on successful login"
+        required: true
+        type: string      
       - name: "blogId"
         in: "path"
         description: "Blog id to delete"
@@ -112,15 +130,15 @@ paths:
           description: "Invalid ID supplied"
         404:
           description: "Blog not found"
+#TODO need to add comment handling APIs           
   /user:
     post:
       tags:
       - "user"
       summary: "Create user"
-      description: "This can only be done by the logged in user."
+      description: "Creates a new user in the blogging system"
       operationId: "createUser"
       produces:
-      - "application/xml"
       - "application/json"
       parameters:
       - in: "body"
@@ -129,50 +147,16 @@ paths:
         required: true
         schema:
           $ref: "#/definitions/User"
-      responses:
-        default:
-          description: "successful operation"
-  /user/createWithArray:
-    post:
-      tags:
-      - "user"
-      summary: "Creates list of users with given input array"
-      description: ""
-      operationId: "createUsersWithArrayInput"
-      produces:
-      - "application/xml"
-      - "application/json"
-      parameters:
-      - in: "body"
-        name: "body"
-        description: "List of user object"
+      - name: "username"
+        in: "query"
+        description: "The user name for login"
         required: true
-        schema:
-          type: "array"
-          items:
-            $ref: "#/definitions/User"
-      responses:
-        default:
-          description: "successful operation"
-  /user/createWithList:
-    post:
-      tags:
-      - "user"
-      summary: "Creates list of users with given input array"
-      description: ""
-      operationId: "createUsersWithListInput"
-      produces:
-      - "application/xml"
-      - "application/json"
-      parameters:
-      - in: "body"
-        name: "body"
-        description: "List of user object"
+        type: "string"
+      - name: "password"
+        in: "query"
+        description: "The password for login in clear text"
         required: true
-        schema:
-          type: "array"
-          items:
-            $ref: "#/definitions/User"
+        type: "string"
       responses:
         default:
           description: "successful operation"
@@ -184,7 +168,6 @@ paths:
       description: ""
       operationId: "loginUser"
       produces:
-      - "application/xml"
       - "application/json"
       parameters:
       - name: "username"
@@ -197,16 +180,14 @@ paths:
         description: "The password for login in clear text"
         required: true
         type: "string"
+#TODO plain text needs to be dealt with and changed to hashed password?.         
+#TODO add the JWT in header so it can be used in all logged in user ops 
       responses:
         200:
           description: "successful operation"
           schema:
             type: "string"
           headers:
-            X-Rate-Limit:
-              type: "integer"
-              format: "int32"
-              description: "calls per hour allowed by the user"
             X-Expires-After:
               type: "string"
               format: "date-time"
@@ -215,15 +196,19 @@ paths:
           description: "Invalid username/password supplied"
   /user/logout:
     get:
+      parameters:
+      - in: header
+        name: "Authorization: Bearer <token>"
+        description: " JWT returned on successful login"
+        required: true
+        type: string
       tags:
       - "user"
-      summary: "Logs out current logged in user session"
+      summary: "Logs out current logged in user"
       description: ""
       operationId: "logoutUser"
       produces:
-      - "application/xml"
       - "application/json"
-      parameters: []
       responses:
         default:
           description: "successful operation"
@@ -235,12 +220,16 @@ paths:
       description: ""
       operationId: "getUserByName"
       produces:
-      - "application/xml"
       - "application/json"
       parameters:
+      - in: header
+        name: "Authorization: Bearer <token>"
+        description: " JWT returned on successful login"
+        required: true
+        type: string
       - name: "username"
         in: "path"
-        description: "The name that needs to be fetched. Use user1 for testing. "
+        description: "The name that needs to be fetched."
         required: true
         type: "string"
       responses:
@@ -259,9 +248,13 @@ paths:
       description: "This can only be done by the logged in user."
       operationId: "updateUser"
       produces:
-      - "application/xml"
       - "application/json"
       parameters:
+      - in: header
+        name: "Authorization: Bearer <token>"
+        description: " JWT returned on successful login"
+        required: true
+        type: string
       - name: "username"
         in: "path"
         description: "name that need to be updated"
@@ -285,9 +278,13 @@ paths:
       description: "This can only be done by the logged in user."
       operationId: "deleteUser"
       produces:
-      - "application/xml"
       - "application/json"
       parameters:
+      - in: header
+        name: "Authorization: Bearer <token>"
+        description: " JWT returned on successful login"
+        required: true
+        type: string
       - name: "username"
         in: "path"
         description: "The name that needs to be deleted"
@@ -298,18 +295,6 @@ paths:
           description: "Invalid username supplied"
         404:
           description: "User not found"
-securityDefinitions:
-  petstore_auth:
-    type: "oauth2"
-    authorizationUrl: "http://petstore.swagger.io/oauth/dialog"
-    flow: "implicit"
-    scopes:
-      write:pets: "modify pets in your account"
-      read:pets: "read your pets"
-  api_key:
-    type: "apiKey"
-    name: "api_key"
-    in: "header"
 definitions:
   User:
     type: "object"
@@ -333,100 +318,25 @@ definitions:
         type: "integer"
         format: "int32"
         description: "User Status"
-    xml:
-      name: "User"
-  Tag:
-    type: "object"
-    properties:
-      id:
-        type: "integer"
-        format: "int64"
-      name:
-        type: "string"
-    xml:
-      name: "Tag"
-  Pet:
-    type: "object"
-    required:
-    - "name"
-    - "photoUrls"
-    properties:
-      id:
-        type: "integer"
-        format: "int64"
-      name:
-        type: "string"
-        example: "doggie"
-      photoUrls:
-        type: "array"
-        xml:
-          name: "photoUrl"
-          wrapped: true
-        items:
-          type: "string"
-      tags:
-        type: "array"
-        xml:
-          name: "tag"
-          wrapped: true
-        items:
-          $ref: "#/definitions/Tag"
-      status:
-        type: "string"
-        description: "pet status in the store"
-        enum:
-        - "available"
-        - "pending"
-        - "sold"
-    xml:
-      name: "Pet"
   Blog:
     type: "object"
     required:
     - "name"
-    - "photoUrls"
     properties:
       id:
         type: "integer"
         format: "int64"
-      category:
-        $ref: "#/definitions/Category"
       name:
         type: "string"
-        example: "doggie"
-      photoUrls:
-        type: "array"
-        xml:
-          name: "photoUrl"
-          wrapped: true
-        items:
-          type: "string"
-      tags:
-        type: "array"
-        xml:
-          name: "tag"
-          wrapped: true
-        items:
-          $ref: "#/definitions/Tag"
-      status:
+        example: "my travels"
+      createdOn:
         type: "string"
-        description: "pet status in the store"
-        enum:
-        - "available"
-        - "pending"
-        - "sold"
-    xml:
-      name: "Pet"
-  ApiResponse:
-    type: "object"
-    properties:
-      code:
-        type: "integer"
-        format: "int32"
-      type:
+      lastUpdatedOn:
+        type: "string"  
+      author:
         type: "string"
-      message:
-        type: "string"
+#TODO need to add comments here 
+#TODO decide if I want to return User object of author instead of just author name string. 
 externalDocs:
   description: "Find out more about Swagger"
   url: "http://swagger.io"
