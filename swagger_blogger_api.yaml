@@ -40,6 +40,10 @@ paths:
         schema:
           $ref: "#/definitions/Blog"
       responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Blog"      
         405:
           description: "Invalid input"
 #TODO need to add APIs to get blogs by pagination in guest mode. 
@@ -93,7 +97,7 @@ paths:
           $ref: "#/definitions/Blog"
       - name: "blogId"
         in: "path"
-        description: "ID of blog to return"
+        description: "ID of blog to update"
         required: true
         type: "integer"
         format: "int64"          
@@ -104,7 +108,6 @@ paths:
           description: "Blog not found"
         405:
           description: "Validation exception"
-#TODO the above means that blog can't be updated without first getting the contents. Is this OK? 
     delete:
       tags:
       - "blog"
@@ -131,6 +134,142 @@ paths:
         404:
           description: "Blog not found"
 #TODO need to add comment handling APIs           
+#comments start: 
+  /blog/{blogId}/comment:
+    post:
+      tags:
+      - "comment"
+      summary: "create a new a comment on the given blog"
+      description: "User must be logged in to create a comment"
+      operationId: "addComment"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: header
+        name: "Authorization: Bearer <token>"
+        description: " JWT returned on successful login"
+        required: true
+        type: string
+      - name: "blogId"
+        in: "path"
+        description: "ID of blog to be commented on"
+        required: true
+        type: "integer"
+        format: "int64"        
+      - in: "body"
+        name: "body"
+        description: "comment object that needs to be created"
+        required: true
+        schema:
+          $ref: "#/definitions/Comment"
+      responses:
+        405:
+          description: "Invalid input"
+  /blog/{blogId}/comment/{commentId}:
+    get:
+      tags:
+      - "comment"
+      summary: "Find a comment on a blog by ID"
+      description: "Returns a single comment"
+      operationId: "getCommentById"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "blogId"
+        in: "path"
+        description: "ID of blog to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "commentId"
+        in: "path"
+        description: "ID of comment to return"
+        required: true
+        type: "integer"
+        format: "int64"  
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Comment"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Comment not found"
+    put:
+      tags:
+      - "comment"
+      summary: "Update an existing comment"
+      description: ""
+      operationId: "updateComment"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: header
+        name: "Authorization: Bearer <token>"
+        description: " JWT returned on successful login"
+        required: true
+        type: string
+      - in: "body"
+        name: "body"
+        description: "Comment object that needs to be updated"
+        required: true
+        schema:
+          $ref: "#/definitions/Comment"
+      - name: "blogId"
+        in: "path"
+        description: "ID of comment to update"
+        required: true
+        type: "integer"
+        format: "int64"          
+      - name: "commentId"
+        in: "path"
+        description: "ID of comment to update"
+        required: true
+        type: "integer"
+        format: "int64"                  
+      responses:
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "comment not found"
+        405:
+          description: "Validation exception"
+    delete:
+      tags:
+      - "comment"
+      summary: "Deletes a comment"
+      description: ""
+      operationId: "deleteComment"
+      produces:
+      - "application/json"
+      parameters:
+      - in: header
+        name: "Authorization: Bearer <token>"
+        description: " JWT returned on successful login"
+        required: true
+        type: string      
+      - name: "blogId"
+        in: "path"
+        description: "Blog id to delete"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "commentId"
+        in: "path"
+        description: "ID of comment to delete"
+        required: true
+        type: "integer"
+        format: "int64"                          
+      responses:
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "comment not found"          
   /user:
     post:
       tags:
@@ -180,7 +319,6 @@ paths:
         description: "The password for login in clear text"
         required: true
         type: "string"
-#TODO add the JWT in header so it can be used in all logged in user ops 
       responses:
         200:
           description: "successful operation"
@@ -191,6 +329,9 @@ paths:
               type: "string"
               format: "date-time"
               description: "date in UTC when token expires"
+            Authorization:
+              type: "string"
+              description: "JWT in the form of Authorization: Bearer <token>"           
         400:
           description: "Invalid username/password supplied"
   /user/logout:
