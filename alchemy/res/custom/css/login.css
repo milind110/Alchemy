@@ -1,0 +1,13 @@
+html, body {
+    height: 100%;
+}
+.container {
+    display: table;
+    max-width: 400px;
+    height: 70%;
+}
+
+.form-signin {
+    display: table-cell;
+    vertical-align: middle;
+}

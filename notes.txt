@@ -1,0 +1,9 @@
+Some minimal notes that I will be writing, along with coding
+
+
+
+
+Mockup tool I used. I made some mistake when saving the mockup so currently mockup is not editable.
+https://github.com/jdittrich/quickMockup
+
+I will be using Bootstrap version 4x, most trainigs / videos availabe on youtube use bootstrap version 3x, hope it wornt make much difference. 
