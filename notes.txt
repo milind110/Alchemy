@@ -12,7 +12,30 @@ MongoDB docker details
 Need to be logged on to cisco vpn
 ssh shrkamat@10.197.37.36
 
+
+
 10.197.37.36:27017
 username: shrkamat
 password: welcome
+
+docker run -v /path/to/datadir:/data/db -d mongo:3.6
 docker exec -it c24194a7a8ad mongo admin
+db.createUser({ user: 'shrkamat', pwd: 'welcome', roles: [ { role: "userAdminAnyDatabase", db: "admin" } ] });
+use cmad-library;
+
+Mongo cheat sheet
+=================
+// list databases
+show dbs;
+
+// create / use a database (NOTE : db will listed only after insetring first document)
+use db-name;
+
+// list all collections
+show collections;
+
+// contents / documents of collection
+db.Blog.find();
+// delete entire database
+db.dropDatabase();
+
