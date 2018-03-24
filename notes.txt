@@ -39,3 +39,10 @@ db.Blog.find();
 // delete entire database
 db.dropDatabase();
 
+
+Creating react app easy way
+===========================
+sudo npm install -g create-react-app
+create-react-app alchemy
+npm install --save react-bootstrap
+npm install --save bootstrap
