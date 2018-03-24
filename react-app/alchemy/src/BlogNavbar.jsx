@@ -5,25 +5,21 @@ class BlogNavbar extends React.Component {
     render() {
         return (
             <Navbar>
-  <Navbar.Header>
-    <Navbar.Brand>
-      <a href="#home">React-Bootstrap</a>
-    </Navbar.Brand>
-  </Navbar.Header>
   <Nav>
-    <NavItem eventKey={1} href="#">
-      Link
-    </NavItem>
-    <NavItem eventKey={2} href="#">
-      Link
-    </NavItem>
-    <NavDropdown eventKey={3} title="Dropdown" id="basic-nav-dropdown">
-      <MenuItem eventKey={3.1}>Action</MenuItem>
-      <MenuItem eventKey={3.2}>Another action</MenuItem>
-      <MenuItem eventKey={3.3}>Something else here</MenuItem>
-      <MenuItem divider />
-      <MenuItem eventKey={3.4}>Separated link</MenuItem>
+    <NavDropdown eventKey={3} title="Blogs" id="basic-nav-dropdown">
+      <MenuItem eventKey={3.1}>New</MenuItem>
+      <MenuItem eventKey={3.2}>Edit</MenuItem>
+      <MenuItem eventKey={3.3}>Save</MenuItem>
     </NavDropdown>
+
+    <NavItem eventKey={1} href="#">
+      Most Viewed
+    </NavItem>
+  </Nav>
+  <Nav pullRight>
+      <NavItem eventKey={1} href="#">
+          Login
+      </NavItem>
   </Nav>
 </Navbar>
         );
