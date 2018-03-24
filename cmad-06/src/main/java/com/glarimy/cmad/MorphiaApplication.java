@@ -2,7 +2,6 @@ package com.glarimy.cmad;
 
 import java.util.List;
 
-import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 
@@ -14,17 +13,6 @@ public class MorphiaApplication {
 		Morphia morphia = new Morphia();
 		String databaseName = "cmad-library";
 		Datastore datastore = morphia.createDatastore(mongoClient, databaseName);
-
-		BookDAO dao = new BookDAO(Book.class, datastore);
-		Book b = new Book();
-		b.setIsbn(new ObjectId().toString());
-		b.setAuthor("Famous Author");
-		dao.save(b);
-
-		System.out.println(dao.get("123.6"));
-		System.out.println(dao.findByAuthor("Famous Author"));
-		System.out.println("fetching list");
-		System.out.println(dao.find().asList());
 		
 		User author = new User("Shrinivas Kamath", "shrkamat@cisco.com");
 		BlogDao blogDao = new BlogDao(Blog.class, datastore);

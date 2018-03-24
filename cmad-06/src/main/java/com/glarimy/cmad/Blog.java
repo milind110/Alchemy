@@ -6,8 +6,6 @@ import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Reference;
 
-import com.mongodb.util.JSON;
-
 @Entity
 public class Blog {
 	// TODO : should blog have a defined primary key Or use mongo generated ?
