@@ -1,5 +1,5 @@
 import React from 'react';
-import {Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
+import {Navbar, Nav, NavItem, NavDropdown, MenuItem, FormGroup, FormControl} from 'react-bootstrap';
 
 class BlogNavbar extends React.Component {
     render() {
@@ -10,11 +10,18 @@ class BlogNavbar extends React.Component {
       <MenuItem eventKey={3.1}>New</MenuItem>
       <MenuItem eventKey={3.2}>Edit</MenuItem>
       <MenuItem eventKey={3.3}>Save</MenuItem>
-    </NavDropdown>
+  </NavDropdown>
 
     <NavItem eventKey={1} href="#">
       Most Viewed
     </NavItem>
+
+  <Navbar.Form pullLeft>
+  <FormGroup>
+      <FormControl type="text" placeholder="Search" />
+  </FormGroup>{' '}
+  </Navbar.Form>
+
   </Nav>
   <Nav pullRight>
       <NavItem eventKey={1} href="#">
