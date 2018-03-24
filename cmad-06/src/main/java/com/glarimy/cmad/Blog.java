@@ -1,5 +1,8 @@
 package com.glarimy.cmad;
 
+import java.util.ArrayList;
+import java.util.List;
+
 // TODO : what is this bson ?
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
@@ -19,6 +22,9 @@ public class Blog {
 	
 	@Reference
 	User author;
+	
+	@Reference
+	List<Comment> comments = new ArrayList<Comment>();
 
 	public Blog() {
 		// TODO Auto-generated constructor stub
@@ -76,6 +82,18 @@ public class Blog {
 
 	public void setObjectId(ObjectId objectId) {
 		this.objectId = objectId;
+	}
+
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
+	
+	public void addComment(Comment comment) {
+		this.comments.add(comment);
 	}
 
 	@Override

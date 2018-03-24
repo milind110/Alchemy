@@ -5,6 +5,7 @@ import java.util.List;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.dao.BasicDAO;
 import org.mongodb.morphia.query.Query;
+import org.mongodb.morphia.query.UpdateOperations;
 import org.bson.types.ObjectId;
 
 public class BlogDao extends BasicDAO<Blog, ObjectId> implements IBlogDao {
@@ -20,7 +21,7 @@ public class BlogDao extends BasicDAO<Blog, ObjectId> implements IBlogDao {
 
 	@Override
 	public Blog getBlog(ObjectId blogId) {
-		Query<Blog> query = createQuery().field("objId").equal(blogId);
+		Query<Blog> query = createQuery().field("objectId").equal(blogId);
 		// TODO : is there any other way ?
 		return query.asList().get(0);
 	}
@@ -33,5 +34,12 @@ public class BlogDao extends BasicDAO<Blog, ObjectId> implements IBlogDao {
 	@Override
 	public void deleteBlog(Blog blog) {
 		delete(blog);
+	}
+
+	@Override
+	public void updateBlog(Blog blog) {
+		// createUpdateOperations().set("comments", blog.getComments());
+		// update(createQuery().field("objectId").equal(blog.getObjectId()), ops)
+		save(blog);
 	}
 }
