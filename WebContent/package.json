@@ -1,12 +1,13 @@
 {
-  "name": "glarimy-reactjs-03",
+  "name": "Alchemy",
   "version": "1.0.0",
-  "description": "",
+  "description": "cmad blog app",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --hot"
+    "start": "webpack-dev-server --hot",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Krishna Mohan Koyya",
+  "author": "shrkamat, mimurthy",
   "license": "ISC",
   "dependencies": {
     "babel-core": "^6.26.0",
