@@ -5,9 +5,13 @@ import Blog from './Blog.jsx'
 class BlogList extends React.Component {
     render(){
         return(
-            <div>
-                <Blog/>
-            </div>
+            <table>
+                <tbody>
+                    <tr>
+                        <Blog />
+                    </tr>
+                </tbody>
+            </table>
         );
     }
 }
