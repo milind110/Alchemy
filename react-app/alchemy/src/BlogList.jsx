@@ -8,7 +8,8 @@ class BlogList extends React.Component {
             <table>
                 <tbody>
                     <tr>
-                        <Blog />
+                        <Blog title="Blog Title" contents="Blog Contents.....................">
+                        </Blog>
                     </tr>
                 </tbody>
             </table>
