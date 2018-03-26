@@ -1,10 +1,16 @@
 import React from "react";
 import ReactDOM from 'react-dom';
 import Blog from './Blog.jsx'
-import {createStore} from 'redux';
 import store from './store.js'
 
 class BlogList extends React.Component {
+    constructor(props) {
+        super(props);
+        store.subscribe( ()=> this.forceUpdate());
+        store.dispatch({
+            type:'fetched_blogs'
+        });
+    }
     render(){
         return(
             <table>
@@ -12,7 +18,7 @@ class BlogList extends React.Component {
                     <p>
                     {
                         store.getState().blogReducer.blogs.map(b => (
-                        <Blog title={b.title} contents={b.contents}>
+                        <Blog title={b.title} contents={b.post}>
                         </Blog>
                         ))
                     }

@@ -1,22 +1,13 @@
-export function blogReducer(state={book:[]}, action) {
-    switch (action) {
+function blogReducer(state={blogs:[]}, action) {
+    switch (action.type) {
+        case 'fetched_blogs':
+            return action.blogs;
+        break;
         default:
         return {
-            blogs: [{
-                "title": "Blog Title 001",
-                "contents": "Blog contents.........................."
-            },
-            {
-                "title": "Blog Title 002",
-                "contents": "Blog contents.........................."
-            },
-            {
-                "title": "Blog Title 003",
-                "contents": "Blog contents.........................."
-            }
-        ]
+            blogs: []
         };
     }
-}
+};
 
 export default blogReducer;
