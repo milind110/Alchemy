@@ -4,6 +4,7 @@ import './App.css';
 import BlogNavbar from './BlogNavbar.jsx';
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
 import BlogList from './BlogList.jsx';
+import Login from './Login.jsx';
 
 class App extends Component {
   render() {
@@ -15,7 +16,8 @@ class App extends Component {
               <h1 className="App-title">Alchemy</h1>
           </header>
           <BlogNavbar />
-          <BlogList />
+          <Route path='/login' component={Login}></Route>
+          <Route path='/' component={BlogList}></Route>
           </div>
           </Router>
     );

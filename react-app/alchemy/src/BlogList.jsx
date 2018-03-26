@@ -15,6 +15,7 @@ class BlogList extends React.Component {
         return(
             <table>
                 <tbody>
+                    <tr>
                     <p>
                     {
                         store.getState().blogReducer.blogs.map(b => (
@@ -23,6 +24,7 @@ class BlogList extends React.Component {
                         ))
                     }
                     </p>
+                    </tr>
                 </tbody>
             </table>
         );
