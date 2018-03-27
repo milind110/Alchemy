@@ -2,7 +2,6 @@ package com.alchemy.api;
 
 import java.util.List;
 
-import com.alchemy.biz.Blog;
 
 public interface IBlogger {
 	void add (Blog book) throws DuplicateBookException, InvalidBlogException, BloggerException;
