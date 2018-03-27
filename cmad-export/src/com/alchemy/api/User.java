@@ -5,6 +5,8 @@ import org.mongodb.morphia.annotations.Id;
 
 @Entity
 public class User {
+	
+	//TODO change this to a unique user ID later on.
 	@Id
 	private String email;
 	private String name;

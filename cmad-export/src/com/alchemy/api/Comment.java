@@ -1,5 +1,7 @@
 package com.alchemy.api;
 
+import java.util.Date;
+
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
@@ -9,8 +11,14 @@ import org.mongodb.morphia.annotations.Reference;
 public class Comment {
 	@Id
 	private ObjectId objectId;
-	
+
 	private String commentText;
+
+	private Date createdOn;
+
+	private Date lastUpdatedOn;
+	
+	private int likes;
 	
 	@Reference
 	Blog blog;
@@ -18,6 +26,8 @@ public class Comment {
 	@Reference
 	User author;
 
+	
+	
 	public Comment() {
 		// TODO Auto-generated constructor stub
 	}
@@ -44,6 +54,33 @@ public class Comment {
 		this.commentText = commentText;
 	}
 
+	
+	public void setcreatedOn(Date createdOn) {
+		this.createdOn = createdOn;
+	}
+
+	public Date getcreatedOn() {
+		return createdOn;
+	}
+
+	public void setlastUpdatedOn(Date lastUpdatedOn) {
+		this.lastUpdatedOn = lastUpdatedOn;
+	}
+
+	public Date lastUpdatedOn() {
+		return lastUpdatedOn;
+	}
+
+	
+	public void setLikes(int likes) {
+		this.likes = likes;
+	}
+
+	public int getLikes() {
+		return likes;
+	}
+
+	
 	public Blog getBlog() {
 		return blog;
 	}

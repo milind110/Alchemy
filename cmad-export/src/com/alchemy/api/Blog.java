@@ -1,6 +1,7 @@
 package com.alchemy.api;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 // TODO : what is this bson ?
@@ -19,12 +20,14 @@ public class Blog {
 	private String contents;
 	private String tags;
 	private int likes;
+
+	private Date createdOn;
 	
 	@Reference
-	User author;
+	private User author;
 	
 	@Reference
-	List<Comment> comments = new ArrayList<Comment>();
+	private List<Comment> comments = new ArrayList<Comment>();
 
 	public Blog() {
 		// TODO Auto-generated constructor stub
@@ -75,7 +78,17 @@ public class Blog {
 	public void setAuthor(User author) {
 		this.author = author;
 	}
+	
+	public Date getcreatedOn() {
+		return createdOn;
+	}
 
+	public void setcreatedOn(Date createdOn) {
+		this.createdOn = createdOn;
+	}
+
+	
+	
 	public ObjectId getObjectId() {
 		return objectId;
 	}
