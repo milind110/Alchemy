@@ -3,7 +3,6 @@ import React from 'react';
 // https://stackoverflow.com/questions/44267049/react-router-does-not-contain-an-export-named-link
 import { Link } from 'react-router-dom';
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem, FormGroup, FormControl } from 'react-bootstrap';
-import BlogList from './BlogList.jsx';
 
 class BlogNavbar extends React.Component {
     render() {
