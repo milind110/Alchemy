@@ -46,3 +46,11 @@ sudo npm install -g create-react-app
 create-react-app alchemy
 npm install --save react-bootstrap
 npm install --save bootstrap
+
+Deploying on TOMCAT
+===================
+mvn compile
+mvn package
+docker run -v /path/to/cmad-00-0.0.1-SNAPSHOT.war:/usr/local/tomcat/webapps/alchemy.war -it -p 8888:8080 tomcat:8.5.29-jre8
+
+Url will be accessible via http://10.197.37.36:8888/alchemy/api/v1/blog
