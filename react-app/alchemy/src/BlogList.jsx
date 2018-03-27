@@ -18,7 +18,7 @@ class BlogList extends React.Component {
                     <p>
                     {
                         store.getState().blogReducer.blogs.map(b => (
-                        <Blog title={b.title} contents={b.post}>
+                        <Blog title={b.title} contents={b.contents}>
                         </Blog>
                         ))
                     }
