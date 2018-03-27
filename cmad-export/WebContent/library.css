@@ -1,0 +1,13 @@
+@charset "ISO-8859-1";
+
+h1 {
+	color: blue;
+}
+
+#results {
+	color: red;
+}
+
+.btn {
+	background-color: green;
+}
