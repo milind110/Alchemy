@@ -1,7 +1,7 @@
 window.addEventListener("load", function() {
 	document.getElementById("btn").addEventListener("click", function() {
 		var isbn = document.getElementById("isbn").value;
-		var url = "findBook?isbn=" + isbn;
+		var url = "/blog?isbn=" + isbn;
 		var xhr = new XMLHttpRequest();
 		xhr.open("GET", url, true);
 		xhr.onreadystatechange = function() {
