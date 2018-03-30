@@ -2,6 +2,11 @@ package com.alchemy.api.exceptions;
 
 public class BlogNotFoundException extends BloggerException {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7645128434641290031L;
+
 	public BlogNotFoundException() {
 		// TODO Auto-generated constructor stub
 	}

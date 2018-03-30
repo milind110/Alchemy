@@ -2,6 +2,11 @@ package com.alchemy.api.exceptions;
 
 public class BloggerException extends RuntimeException {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2794573560855337906L;
+
 	public BloggerException() {
 		// TODO Auto-generated constructor stub
 	}

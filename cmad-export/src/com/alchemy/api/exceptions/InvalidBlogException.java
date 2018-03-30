@@ -2,6 +2,11 @@ package com.alchemy.api.exceptions;
 
 public class InvalidBlogException extends BloggerException {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2988641207291936635L;
+
 	public InvalidBlogException() {
 		// TODO Auto-generated constructor stub
 	}
