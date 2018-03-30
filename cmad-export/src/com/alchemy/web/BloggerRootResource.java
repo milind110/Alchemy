@@ -8,6 +8,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.bson.types.ObjectId;
+
 import com.alchemy.api.IBlogger;
 import com.alchemy.biz.Alchemy;
 
@@ -15,6 +17,7 @@ import com.alchemy.biz.Alchemy;
  * Servlet implementation class BloggerRootResource
  */
 @Path("/v1")
+@Produces({ MediaType.APPLICATION_JSON })
 public class BloggerRootResource extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private IBlogger blogger;
@@ -26,15 +29,13 @@ public class BloggerRootResource extends HttpServlet {
 
 	@GET
 	@Path("/blog")
-	@Produces({ MediaType.APPLICATION_JSON })
 	public Response getBlog() {
 		return Response.ok().entity(blogger.searchBlog(null)).build();
 	}
 
 	@GET
 	@Path("/blog/{blogId}")
-	@Produces({ MediaType.APPLICATION_JSON })
-	public Response getBlog(@PathParam("blogId") String blogId) {
-		return Response.ok().entity("GET blogId=" + blogId).build();
+	public Response getBlog(@PathParam("blogId") ObjectId blogId) {
+		return Response.ok().entity(blogger.getBlog(blogId)).build();
 	}
 }

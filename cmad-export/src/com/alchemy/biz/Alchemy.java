@@ -2,6 +2,8 @@ package com.alchemy.biz;
 
 import java.util.List;
 
+import org.bson.types.ObjectId;
+
 import com.alchemy.api.IBlogger;
 import com.alchemy.api.Blog;
 import com.alchemy.api.exceptions.BlogNotFoundException;
@@ -10,7 +12,7 @@ import com.alchemy.api.exceptions.DuplicateBookException;
 import com.alchemy.api.exceptions.InvalidBlogException;
 
 public class Alchemy implements IBlogger {
-	
+
 	public Alchemy() {
 		// TODO Auto-generated constructor stub
 	}
@@ -23,13 +25,16 @@ public class Alchemy implements IBlogger {
 	}
 
 	@Override
-	public Blog getBlog(int blogId) throws BlogNotFoundException {
-		throw new BlogNotFoundException();
+	public Blog getBlog(ObjectId blogId) throws BlogNotFoundException {
+		Blog blog = AppManager.getInstance().getBlogdao().getBlog(blogId);
+		if (blog == null) {
+			throw new BlogNotFoundException();
+		}
+		return blog;
 	}
 
 	@Override
 	public List<Blog> searchBlog(String filter) throws BloggerException {
 		return AppManager.getInstance().getBlogdao().getBlogs();
 	}
-
 }
