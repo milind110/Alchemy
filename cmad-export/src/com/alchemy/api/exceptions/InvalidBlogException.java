@@ -1,27 +1,27 @@
-package com.alchemy.api;
+package com.alchemy.api.exceptions;
 
-public class BlogNotFoundException extends BloggerException {
+public class InvalidBlogException extends BloggerException {
 
-	public BlogNotFoundException() {
+	public InvalidBlogException() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public BlogNotFoundException(String message) {
+	public InvalidBlogException(String message) {
 		super(message);
 		// TODO Auto-generated constructor stub
 	}
 
-	public BlogNotFoundException(Throwable cause) {
+	public InvalidBlogException(Throwable cause) {
 		super(cause);
 		// TODO Auto-generated constructor stub
 	}
 
-	public BlogNotFoundException(String message, Throwable cause) {
+	public InvalidBlogException(String message, Throwable cause) {
 		super(message, cause);
 		// TODO Auto-generated constructor stub
 	}
 
-	public BlogNotFoundException(String message, Throwable cause, boolean enableSuppression,
+	public InvalidBlogException(String message, Throwable cause, boolean enableSuppression,
 			boolean writableStackTrace) {
 		super(message, cause, enableSuppression, writableStackTrace);
 		// TODO Auto-generated constructor stub

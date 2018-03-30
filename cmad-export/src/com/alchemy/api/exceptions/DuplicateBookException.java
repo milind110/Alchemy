@@ -1,4 +1,4 @@
-package com.alchemy.api;
+package com.alchemy.api.exceptions;
 
 public class DuplicateBookException extends BloggerException {
 

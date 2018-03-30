@@ -2,12 +2,12 @@ package com.alchemy.biz;
 
 import java.util.List;
 
-import com.alchemy.api.BlogNotFoundException;
-import com.alchemy.api.BloggerException;
-import com.alchemy.api.DuplicateBookException;
 import com.alchemy.api.IBlogger;
 import com.alchemy.api.Blog;
-import com.alchemy.api.InvalidBlogException;
+import com.alchemy.api.exceptions.BlogNotFoundException;
+import com.alchemy.api.exceptions.BloggerException;
+import com.alchemy.api.exceptions.DuplicateBookException;
+import com.alchemy.api.exceptions.InvalidBlogException;
 
 public class Alchemy implements IBlogger {
 	
