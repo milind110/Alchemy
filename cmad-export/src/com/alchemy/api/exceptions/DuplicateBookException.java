@@ -2,6 +2,11 @@ package com.alchemy.api.exceptions;
 
 public class DuplicateBookException extends BloggerException {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1761257958686748819L;
+
 	public DuplicateBookException() {
 		// TODO Auto-generated constructor stub
 	}

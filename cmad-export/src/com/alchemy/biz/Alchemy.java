@@ -16,19 +16,19 @@ public class Alchemy implements IBlogger {
 	}
 
 	@Override
-	public void add(Blog blog) throws DuplicateBookException, InvalidBlogException {
+	public void addBlog(Blog blog) throws DuplicateBookException, InvalidBlogException {
 		if (blog == null || blog.getTitle().trim().length() <= 0) {
 			throw new InvalidBlogException();
 		}
 	}
 
 	@Override
-	public Blog find(int blogId) throws BlogNotFoundException {
+	public Blog getBlog(int blogId) throws BlogNotFoundException {
 		throw new BlogNotFoundException();
 	}
 
 	@Override
-	public List<Blog> search(String filter) throws BloggerException {
+	public List<Blog> searchBlog(String filter) throws BloggerException {
 		return AppManager.getInstance().getBlogdao().getBlogs();
 	}
 

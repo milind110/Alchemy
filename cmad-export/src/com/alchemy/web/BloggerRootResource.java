@@ -28,7 +28,7 @@ public class BloggerRootResource extends HttpServlet {
 	@Path("/blog")
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response getBlog() {
-		return Response.ok().entity(blogger.search(null)).build();
+		return Response.ok().entity(blogger.searchBlog(null)).build();
 	}
 
 	@GET
