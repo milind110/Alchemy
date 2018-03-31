@@ -10,4 +10,5 @@ public interface ICommentDao {
 	public void addComment(Comment comment);
 	public void updateComment(Comment comment);
 	public void deleteComment(Comment comment);
+	void addComment(List<Comment> comments);
 }

@@ -41,6 +41,13 @@ public class CommentDao extends BasicDAO<Comment, ObjectId> implements ICommentD
 	}
 
 	@Override
+	public void addComment(List<Comment> comments) {
+		for (Comment comment : comments) {
+			save(comment);
+		}
+	}
+
+	@Override
 	public void updateComment(Comment comment) {
 		save(comment);
 	}

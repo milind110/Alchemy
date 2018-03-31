@@ -5,7 +5,6 @@ import java.util.List;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.dao.BasicDAO;
 import org.mongodb.morphia.query.Query;
-import org.mongodb.morphia.query.UpdateOperations;
 
 import com.alchemy.api.IBlogDao;
 import com.alchemy.api.Blog;
@@ -32,6 +31,8 @@ public class BlogDao extends BasicDAO<Blog, ObjectId> implements IBlogDao {
 
 	@Override
 	public void addBlog(Blog blog) {
+		AppManager.getInstance().getUserdao().addUser(blog.getAuthor());
+		AppManager.getInstance().getCommentsdao().addComment(blog.getComments());
 		save(blog);
 	}
 

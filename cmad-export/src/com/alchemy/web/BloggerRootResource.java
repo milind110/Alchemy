@@ -1,7 +1,10 @@
 package com.alchemy.web;
 
+import java.net.URI;
+
 import javax.servlet.http.HttpServlet;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -10,7 +13,9 @@ import javax.ws.rs.core.Response;
 
 import org.bson.types.ObjectId;
 
+import com.alchemy.api.Blog;
 import com.alchemy.api.IBlogger;
+import com.alchemy.api.exceptions.BloggerException;
 import com.alchemy.biz.Alchemy;
 
 /**
@@ -37,5 +42,16 @@ public class BloggerRootResource extends HttpServlet {
 	@Path("/blog/{blogId}")
 	public Response getBlog(@PathParam("blogId") ObjectId blogId) {
 		return Response.ok().entity(blogger.getBlog(blogId)).build();
+	}
+
+	@POST
+	@Path("/blog")
+	public Response addBlog(Blog blog) {
+		blogger.addBlog(blog);
+		try {
+			return Response.created(new URI(blog.getObjectId().toHexString())).build();
+		} catch (Exception e) {
+			throw new BloggerException();
+		}
 	}
 }

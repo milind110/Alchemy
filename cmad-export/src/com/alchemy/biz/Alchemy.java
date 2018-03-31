@@ -22,6 +22,7 @@ public class Alchemy implements IBlogger {
 		if (blog == null || blog.getTitle().trim().length() <= 0) {
 			throw new InvalidBlogException();
 		}
+		AppManager.getInstance().getBlogdao().addBlog(blog);
 	}
 
 	@Override
