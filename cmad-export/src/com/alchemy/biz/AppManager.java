@@ -20,9 +20,9 @@ public class AppManager {
 
 	private AppManager() {
 		// TODO : modularize this 
-		MongoClient mongoClient = new MongoClient("10.197.37.36:27017");
+		MongoClient mongoClient = new MongoClient("127.0.0.1:27017");
 		Morphia morphia = new Morphia();
-		String databaseName = "cmad-library";
+		String databaseName = "cmad-blogs";
 		Datastore ds = morphia.createDatastore(mongoClient, databaseName);
 		
 		blogdao = new BlogDao(Blog.class, ds);
