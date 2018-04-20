@@ -7,7 +7,8 @@ import org.mongodb.morphia.annotations.Id;
 public class User {
 	
 	//TODO change this to a unique user ID later on.
-	@Id
+	@Id	
+	private String userId;
 	private String email;
 	private String name;
 
@@ -15,10 +16,12 @@ public class User {
 		// TODO Auto-generated constructor stub
 	}
 	
+	
 	public User(String name, String email) {
 		this.name = name;
 		this.email = email;
 	}
+	
 	
 	public String getName() {
 		return name;
@@ -36,4 +39,12 @@ public class User {
 		this.email = email;
 	}
 
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	
 }

@@ -11,7 +11,14 @@ import com.alchemy.api.exceptions.InvalidBlogException;
 
 
 public interface IBlogger {
+	
+	/*blogger operations */
+	
 	void addBlog (Blog book) throws DuplicateBookException, InvalidBlogException, BloggerException;
 	Blog getBlog (ObjectId blogId) throws BlogNotFoundException, BloggerException;
 	List<Blog> searchBlog(String filter) throws BloggerException;
+	List<User> searchUser(String filter) throws BloggerException;
+	
+	/* TODO add user and comment operations here */
+	public String signupNewUser(User user) throws BloggerException; 
 }
