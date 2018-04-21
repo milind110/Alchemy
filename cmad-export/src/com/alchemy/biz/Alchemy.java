@@ -74,7 +74,7 @@ public class Alchemy implements IBlogger {
 	}
 
 	@Override
-	public List<User> searchUser(String filter) throws BloggerException {
-		return AppManager.getInstance().getUserdao().getUsers();
+	public User searchUser(String filter) throws BloggerException {
+		return AppManager.getInstance().getUserdao().getUser(filter);
 	}
 }

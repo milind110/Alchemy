@@ -17,8 +17,9 @@ public interface IBlogger {
 	void addBlog (Blog book) throws DuplicateBookException, InvalidBlogException, BloggerException;
 	Blog getBlog (ObjectId blogId) throws BlogNotFoundException, BloggerException;
 	List<Blog> searchBlog(String filter) throws BloggerException;
-	List<User> searchUser(String filter) throws BloggerException;
+	
 	
 	/* TODO add user and comment operations here */
-	public String signupNewUser(User user) throws BloggerException; 
+	String signupNewUser(User user) throws BloggerException;
+	User searchUser(String filter) throws BloggerException;
 }

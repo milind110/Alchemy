@@ -77,13 +77,14 @@ public class BloggerRootResource extends HttpServlet {
 	
 	//TODO take user ID param here.
 	@GET
-	@Path("/user")
+	@Path("/users/{userId}")
 	@Produces(MediaType.APPLICATION_JSON) 
-	public Response getUser() {
+	public Response getUser(@PathParam("userId")String userId) {
 		
-		List<User> list = blogger.searchUser(null);
-		GenericEntity<List<User>> entity = new GenericEntity<List<User>>(list) {};
-		System.out.println("getting Userid :");
+		System.out.println("getting Userid: " + userId);
+		User result = blogger.searchUser(userId);
+		GenericEntity<User> entity = new GenericEntity<User>(result) {};
+		
 		return Response.ok(entity).build();
 		
 		//TODO: Remove the temp code. 
