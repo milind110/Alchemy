@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServlet;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
@@ -107,5 +108,17 @@ public class BloggerRootResource extends HttpServlet {
 		blogger.updateUser(user);
 		return Response.ok().build();
 	}
+	
+	//delete 
+	//TODO require token 
+	@DELETE
+	@Path("/user/{userId}")	 
+	//@RequireJWToken
+	public Response deleteUser(@PathParam("userId")String userId) {
+		System.out.println("deleteUser userId:"+userId);
+		blogger.deleteUser(userId);
+		return Response.ok().build();
+	}
+	
 	
 }

@@ -23,4 +23,5 @@ public interface IBlogger {
 	String signupNewUser(User user) throws BloggerException;
 	User searchUser(String filter) throws BloggerException;
 	void updateUser(User user) throws BloggerException;
+	void deleteUser(String userId) throws BloggerException;
 }

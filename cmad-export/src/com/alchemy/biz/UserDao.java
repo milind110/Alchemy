@@ -10,6 +10,7 @@ import org.mongodb.morphia.query.UpdateOperations;
 
 import com.alchemy.api.IUserDao;
 import com.alchemy.api.User;
+import com.mongodb.WriteResult;
 
 public class UserDao extends BasicDAO<User, String> implements IUserDao {
 
@@ -37,8 +38,23 @@ public class UserDao extends BasicDAO<User, String> implements IUserDao {
 	}
 
 	@Override
-	public void deleteUser(User user) {
-		delete(user);
+	public void deleteUser(String userId) {
+		
+		System.out.println("running delete by userId: " + userId);
+		ObjectId objectId = new ObjectId(userId);
+
+		final Query<User> qry = createQuery().field("_id").equal(objectId);
+		WriteResult res = deleteByQuery(qry);		
+		
+		if (res.wasAcknowledged())
+		{
+			System.out.println("Delete was successful, affected records: " + res.getN() );
+		}
+		else
+		{
+			System.out.println("deleteUser - Write was not acknowledged");
+		}
+		
 	}
 	
 	@Override
@@ -66,7 +82,8 @@ public class UserDao extends BasicDAO<User, String> implements IUserDao {
 			updateOptions.set("email", user.getEmail());
 		}
 				
-		// TODO: This causes a type mismatch warning from morphia query validator.
+		// TODO: This causes a type mismatch warning to be printed in console log from morphia query validator.
 		update(createQuery().field("_id").equal(objectId), updateOptions);		
-	}
+	}	
+	
 }

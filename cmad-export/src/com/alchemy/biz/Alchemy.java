@@ -45,6 +45,8 @@ public class Alchemy implements IBlogger {
 		return AppManager.getInstance().getBlogdao().getBlogs();
 	}
 	
+	/* User operations */
+	
 	@Override
 	public String signupNewUser(User user)
 			throws BloggerException {
@@ -54,8 +56,31 @@ public class Alchemy implements IBlogger {
 		AppManager.getInstance().getUserdao().addUser(user);		
 		String token = issueToken(user.getUserId());
 		return token;
+	}	
+	
+
+	@Override
+	public User searchUser(String filter) throws BloggerException {
+		return AppManager.getInstance().getUserdao().getUser(filter);
 	}
 	
+	@Override
+	public void updateUser(User user) throws BloggerException{
+		if (user == null || (AppManager.getInstance().getUserdao().getUser(user.getUserId()) == null))
+			throw new BloggerException();
+		
+		AppManager.getInstance().getUserdao().updateUser(user);
+	}
+	
+	@Override
+	public void deleteUser(String userId) throws BloggerException {
+		AppManager.getInstance().getUserdao().deleteUser(userId);
+		return ;
+	}
+	
+	
+	/* Login / Logout related functions. */
+	//TODO refactor this into a separate module.
 	private String issueToken(String userId) {
 		String jwtToken = null;
 		try {
@@ -73,18 +98,6 @@ public class Alchemy implements IBlogger {
 		}
 		return jwtToken;
 	}
-
-	@Override
-	public User searchUser(String filter) throws BloggerException {
-		return AppManager.getInstance().getUserdao().getUser(filter);
-	}
 	
-	@Override
-	public void updateUser(User user) throws BloggerException{
-		if (user == null || (AppManager.getInstance().getUserdao().getUser(user.getUserId()) == null))
-			throw new BloggerException();
-		
-		AppManager.getInstance().getUserdao().updateUser(user);
-	}
 	}
 
