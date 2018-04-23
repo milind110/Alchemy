@@ -22,4 +22,5 @@ public interface IBlogger {
 	/* TODO add user and comment operations here */
 	String signupNewUser(User user) throws BloggerException;
 	User searchUser(String filter) throws BloggerException;
+	void updateUser(User user) throws BloggerException;
 }

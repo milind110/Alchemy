@@ -7,4 +7,5 @@ public interface IUserDao {
 	public User getUser(String email);
 	public void addUser(User user);
 	public void deleteUser(User user);
+	public void updateUser(User user);
 }

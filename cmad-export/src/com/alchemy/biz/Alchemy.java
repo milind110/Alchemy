@@ -14,6 +14,7 @@ import com.alchemy.api.exceptions.InvalidBlogException;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
+
 import com.alchemy.api.User;
 
 public class Alchemy implements IBlogger {
@@ -77,4 +78,13 @@ public class Alchemy implements IBlogger {
 	public User searchUser(String filter) throws BloggerException {
 		return AppManager.getInstance().getUserdao().getUser(filter);
 	}
-}
+	
+	@Override
+	public void updateUser(User user) throws BloggerException{
+		if (user == null || (AppManager.getInstance().getUserdao().getUser(user.getUserId()) == null))
+			throw new BloggerException();
+		
+		AppManager.getInstance().getUserdao().updateUser(user);
+	}
+	}
+

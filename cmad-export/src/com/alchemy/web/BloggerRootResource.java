@@ -9,7 +9,9 @@ import java.util.List;
 import javax.servlet.http.HttpServlet;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -65,6 +67,8 @@ public class BloggerRootResource extends HttpServlet {
 	}
 	
 	/* user operations */
+	
+	//create 
 	@POST
 	@Path("/user")
 	@Consumes(MediaType.APPLICATION_JSON) 
@@ -75,10 +79,12 @@ public class BloggerRootResource extends HttpServlet {
 		return Response.ok().header(AUTHORIZATION, "Bearer " + token).build();
 	}
 	
-	//TODO take user ID param here.
+	
+	//read 
 	@GET
-	@Path("/users/{userId}")
-	@Produces(MediaType.APPLICATION_JSON) 
+	@Path("/user/{userId}")
+	@Produces(MediaType.APPLICATION_JSON)
+	//@RequireJWToken
 	public Response getUser(@PathParam("userId")String userId) {
 		
 		System.out.println("getting Userid: " + userId);
@@ -87,17 +93,19 @@ public class BloggerRootResource extends HttpServlet {
 		
 		return Response.ok(entity).build();
 		
-		//TODO: Remove the temp code. 
-		
-		/*
-		User res = new User();
-		res.setEmail("sample@email.com");
-		res.setName("John Doe");
-		res.setUserId("deadbeef");
-		
-		return Response.ok().entity(res).build();
-		*/
 	}
 	
+	//update 
+	//TODO require token 
+	@PUT
+	@Path("/user/{userId}")
+	@Consumes(MediaType.APPLICATION_JSON) 
+	//@RequireJWToken
+	public Response updateUser(@PathParam("userId")String userId,User user) {
+		System.out.println("updateUser userId:"+userId);
+		user.setUserId(userId);
+		blogger.updateUser(user);
+		return Response.ok().build();
+	}
 	
 }

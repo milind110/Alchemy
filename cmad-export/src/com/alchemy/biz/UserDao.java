@@ -6,6 +6,7 @@ import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.dao.BasicDAO;
 import org.mongodb.morphia.query.Query;
+import org.mongodb.morphia.query.UpdateOperations;
 
 import com.alchemy.api.IUserDao;
 import com.alchemy.api.User;
@@ -26,6 +27,7 @@ public class UserDao extends BasicDAO<User, String> implements IUserDao {
 		System.out.println("running get by userId: " + userId);		
 		ObjectId objectId = new ObjectId(userId);
 		User result = ds.get(User.class, objectId);
+		//User result = ds.find(User.class).field("_id").equal(objectId).get();		
 		return result;		
 	}
 
@@ -37,5 +39,34 @@ public class UserDao extends BasicDAO<User, String> implements IUserDao {
 	@Override
 	public void deleteUser(User user) {
 		delete(user);
+	}
+	
+	@Override
+	public void updateUser(User user) {
+		
+		ObjectId objectId = new ObjectId(user.getUserId());	
+		
+		
+		System.out.println("UserDao: doing updateUser");
+		
+		UpdateOperations<User> updateOptions = createUpdateOperations();
+
+		if(user.getName() != null){
+			System.out.println("UserDao: doing updateUser - name");
+			updateOptions.set("name", user.getName());
+		}
+		
+		if(user.getPassword() != null) {
+			System.out.println("UserDao: doing updateUser - pwd ");
+			updateOptions.set("password", user.getPassword());
+		}
+		
+		if(user.getEmail() != null) {
+			System.out.println("UserDao: doing updateUser - email");
+			updateOptions.set("email", user.getEmail());
+		}
+				
+		// TODO: This causes a type mismatch warning from morphia query validator.
+		update(createQuery().field("_id").equal(objectId), updateOptions);		
 	}
 }

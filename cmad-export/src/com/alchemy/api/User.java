@@ -11,15 +11,17 @@ public class User {
 	private String userId;
 	private String email;
 	private String name;
+	private String password;
 
 	public User() {
 		// TODO Auto-generated constructor stub
 	}
-	
-	
-	public User(String name, String email) {
+		
+	public User(String name, String email, String userId, String password) {
 		this.name = name;
 		this.email = email;
+		this.userId = userId;
+		this.password = password;		
 	}
 	
 	
@@ -46,5 +48,14 @@ public class User {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
+	
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	
 }
