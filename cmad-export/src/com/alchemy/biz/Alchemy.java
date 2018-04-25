@@ -82,22 +82,52 @@ public class Alchemy implements IBlogger {
 	/* Login / Logout related functions. */
 	//TODO refactor this into a separate module.
 	private String issueToken(String userId) {
-		String jwtToken = null;
+		String jwToken = null;
 		try {
 			Algorithm algorithm = Algorithm.HMAC256("secret");
-			jwtToken= JWT.create()
+			jwToken= JWT.create()
 					.withIssuer("auth0")
 					.withSubject(userId)
 					.sign(algorithm);
 		} catch (UnsupportedEncodingException exception){
 			//UTF-8 encoding not supported
-			System.out.println("Token issue failed :"+exception);
+			System.out.println("Token issue failed: "+exception);
 		} catch (JWTCreationException exception){
 			//Invalid Signing configuration / Couldn't convert Claims.
-			System.out.println("Token issue failed :"+exception);
+			System.out.println("Token issue failed: "+exception);
 		}
-		return jwtToken;
+		return jwToken;
 	}
 	
+	public String loginUser(String userId,String password) throws SecurityException,/*InvalidCredentialsException, */BloggerException {
+		// Authenticate the user using the credentials provided
+		if(authenticate(userId, password)) {
+			// Issue a token for the user
+			String token = issueToken(userId);
+			// Return the token on the response
+			if(token == null){
+				throw new BloggerException();
+			}else
+				return token;
+		} else {
+			throw new SecurityException("Invalid user/password");
+		}
+		
+	}
+	
+	private boolean authenticate(String userId, String password) {
+		System.out.println("alchemy blogger authenticate userId: "+userId);
+		boolean res = false;
+		User user = AppManager.getInstance().getUserdao().getUser(userId);
+		if(user != null){
+			String storedPassword = user.getPassword();
+			System.out.println("authenticate storedPassword: " + storedPassword);
+			System.out.println("authenticate password != storedPassword: " + password.equals(storedPassword));
+			if(password.equals(storedPassword)){				
+				res = true;
+			}
+		}
+		return res;
+	}	
 	}
 

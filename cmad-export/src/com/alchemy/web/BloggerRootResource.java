@@ -9,6 +9,7 @@ import java.util.List;
 import javax.servlet.http.HttpServlet;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
@@ -16,6 +17,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -32,7 +34,6 @@ import com.alchemy.api.User;
  * Servlet implementation class BloggerRootResource
  */
 @Path("/v1")
-@Produces({ MediaType.APPLICATION_JSON })
 public class BloggerRootResource extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private IBlogger blogger;
@@ -46,18 +47,21 @@ public class BloggerRootResource extends HttpServlet {
 	
 	@GET
 	@Path("/blog")
+	@Produces({ MediaType.APPLICATION_JSON })
 	public Response getBlog() {
 		return Response.ok().entity(blogger.searchBlog(null)).build();
 	}
 
 	@GET
 	@Path("/blog/{blogId}")
+	@Produces({ MediaType.APPLICATION_JSON })
 	public Response getBlog(@PathParam("blogId") ObjectId blogId) {
 		return Response.ok().entity(blogger.getBlog(blogId)).build();
 	}
 
 	@POST
 	@Path("/blog")
+	@Produces({ MediaType.APPLICATION_JSON })
 	public Response addBlog(Blog blog) {
 		blogger.addBlog(blog);
 		try {
@@ -120,5 +124,11 @@ public class BloggerRootResource extends HttpServlet {
 		return Response.ok().build();
 	}
 	
-	
+	@GET
+	@Path("/user/login")	
+	public Response loginUser(@QueryParam("userId") String userId, @QueryParam("pwd") String pwd) {
+		System.out.println("BloggerRootResource login userId :"+userId);
+		String token = blogger.loginUser(userId, pwd);
+		return Response.ok().header(AUTHORIZATION, "Bearer " + token).build();
+	}
 }
