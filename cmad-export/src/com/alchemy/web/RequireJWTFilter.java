@@ -25,8 +25,7 @@ public class RequireJWTFilter implements ContainerRequestFilter {
 		
 		System.out.println("Entered filter for request");
 		
-		//TODO: Uncomment for JWT validation.		
-		/*
+		
 		// Get the HTTP Authorization header from the request
 		String authorizationHeader = requestContext.getHeaderString(HttpHeaders.AUTHORIZATION);
 		// Extract the token from the HTTP Authorization header
@@ -57,6 +56,6 @@ public class RequireJWTFilter implements ContainerRequestFilter {
 			System.out.println("#### No authorization header");
 			requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED).build());
 		}
-		*/        
+		        
 	}	
 }

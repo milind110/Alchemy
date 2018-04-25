@@ -3,15 +3,10 @@ package com.alchemy.web;
 import static javax.ws.rs.core.HttpHeaders.AUTHORIZATION;
 
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.servlet.http.HttpServlet;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
-import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
-import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -62,6 +57,7 @@ public class BloggerRootResource extends HttpServlet {
 	@POST
 	@Path("/blog")
 	@Produces({ MediaType.APPLICATION_JSON })
+	@RequireJWT
 	public Response addBlog(Blog blog) {
 		blogger.addBlog(blog);
 		try {
@@ -89,7 +85,7 @@ public class BloggerRootResource extends HttpServlet {
 	@GET
 	@Path("/user/{userId}")
 	@Produces(MediaType.APPLICATION_JSON)
-	//@RequireJWToken
+	@RequireJWT
 	public Response getUser(@PathParam("userId")String userId) {
 		
 		System.out.println("getting Userid: " + userId);
@@ -100,12 +96,11 @@ public class BloggerRootResource extends HttpServlet {
 		
 	}
 	
-	//update 
-	//TODO require token 
+	//update	
 	@PUT
 	@Path("/user/{userId}")
 	@Consumes(MediaType.APPLICATION_JSON) 
-	//@RequireJWToken
+	@RequireJWT	
 	public Response updateUser(@PathParam("userId")String userId,User user) {
 		System.out.println("updateUser userId:"+userId);
 		user.setUserId(userId);
@@ -113,11 +108,10 @@ public class BloggerRootResource extends HttpServlet {
 		return Response.ok().build();
 	}
 	
-	//delete 
-	//TODO require token 
+	//delete	 
 	@DELETE
 	@Path("/user/{userId}")	 
-	//@RequireJWToken
+	@RequireJWT
 	public Response deleteUser(@PathParam("userId")String userId) {
 		System.out.println("deleteUser userId:"+userId);
 		blogger.deleteUser(userId);
@@ -126,9 +120,18 @@ public class BloggerRootResource extends HttpServlet {
 	
 	@GET
 	@Path("/user/login")	
+	//TODO here add the issued to token to a DB of valid tokens for that user. 
 	public Response loginUser(@QueryParam("userId") String userId, @QueryParam("pwd") String pwd) {
 		System.out.println("BloggerRootResource login userId :"+userId);
 		String token = blogger.loginUser(userId, pwd);
 		return Response.ok().header(AUTHORIZATION, "Bearer " + token).build();
+	}
+	
+	//TODO here actually mark the token as no longer valid
+	@GET
+	@Path("/user/logout")	
+	public Response logoutUser(@QueryParam("userId") String userId) {
+		System.out.println("BloggerRootResource logout userId :"+userId);		
+		return Response.ok().build();
 	}
 }
