@@ -2,20 +2,23 @@ package com.alchemy.web;
 
 import static javax.ws.rs.core.HttpHeaders.AUTHORIZATION;
 
-import java.net.URI;
 import javax.servlet.http.HttpServlet;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriBuilder;
+import javax.ws.rs.core.UriInfo;
 
 import org.bson.types.ObjectId;
 
@@ -58,14 +61,22 @@ public class BloggerRootResource extends HttpServlet {
 	@Path("/blog")
 	@Produces({ MediaType.APPLICATION_JSON })
 	@RequireJWT
-	public Response addBlog(Blog blog) {
+	public Response addBlog(@HeaderParam("userId") String userId, Blog blog, @Context UriInfo uriInfo) {
+		
+		System.out.println("BloggerRootResource addBlog userId: "+ userId);
+		System.out.println("BloggerRootResource addBlog title: "+ blog.getTitle());
+		User author = blogger.searchUser(userId);
+		blog.setAuthor(author);
 		blogger.addBlog(blog);
+		UriBuilder uriBuilder = uriInfo.getAbsolutePathBuilder();
+		uriBuilder.path(blog.getObjectId().toHexString());
 		try {
-			return Response.created(new URI(blog.getObjectId().toHexString())).build();
+			return Response.created(uriBuilder.build()).build();
 		} catch (Exception e) {
 			throw new BloggerException();
 		}
 	}
+	
 	
 	/* user operations */
 	

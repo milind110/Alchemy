@@ -31,8 +31,8 @@ public class BlogDao extends BasicDAO<Blog, ObjectId> implements IBlogDao {
 
 	@Override
 	public void addBlog(Blog blog) {
-		AppManager.getInstance().getUserdao().addUser(blog.getAuthor());
-		AppManager.getInstance().getCommentsdao().addComment(blog.getComments());
+		//AppManager.getInstance().getUserdao().addUser(blog.getAuthor());
+		//AppManager.getInstance().getCommentsdao().addComment(blog.getComments());
 		save(blog);
 	}
 

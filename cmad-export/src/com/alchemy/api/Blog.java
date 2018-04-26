@@ -87,9 +87,7 @@ public class Blog {
 
 	public void setcreatedOn(Date createdOn) {
 		this.createdOn = createdOn;
-	}
-
-	
+	}	
 	
 	public ObjectId getObjectId() {
 		return objectId;
@@ -115,4 +113,5 @@ public class Blog {
 	public String toString() {
 		return "@" + author.getName() + " " + title + " { " + tags + " }";
 	}
+	
 }
