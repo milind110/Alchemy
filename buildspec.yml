@@ -13,12 +13,12 @@ phases:
   build:
     commands:
       - echo Build started on `date`
-	  - cd react-app/alchemy
-	  - npm run-script build
-	  - cd ../../cmad-export
-	  - mvn compile
+      - cd react-app/alchemy
+      - npm run-script build
+      - cd ../../cmad-export
+      - mvn compile
       - mvn package
-	  - cd ../
+      - cd ../
   post_build:
     commands:
       - echo Build completed on `date`
