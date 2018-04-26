@@ -10,10 +10,18 @@ phases:
       - which mvn
       - mvn -version
       - pwd
+      - sudo apt install -y npm
+      - sudo apt install -y nodejs-legacy
   build:
     commands:
+# it is better to do these things inside a docker container than to prepare the build environment here.
       - echo Build started on `date`
-      - cd cmad-export
+      - create-react-app alchemy
+      - cd alchemy
+      - npm install --save react-bootstrap
+      - npm install --save bootstrap
+      - npm run-script build
+      - cd ../cmad-export
       - mvn compile
       - mvn package
       - cd ../
