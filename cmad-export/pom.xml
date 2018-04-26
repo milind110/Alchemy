@@ -80,11 +80,11 @@
 		    <artifactId>java-jwt</artifactId>
 		    <version>3.2.0</version>
 		</dependency>
-		<dependency>
-  			<groupId>org.glassfish.jersey.media</groupId>
-  			<artifactId>jersey-media-json-jackson</artifactId>
-  			<scope>compile</scope>
-  			<version>2.27</version>
-		</dependency>			
+<!-- https://mvnrepository.com/artifact/org.glassfish.jersey.media/jersey-media-json-jackson -->
+<dependency>
+    <groupId>org.glassfish.jersey.media</groupId>
+    <artifactId>jersey-media-json-jackson</artifactId>
+    <version>2.3.1</version>
+</dependency>			
 	</dependencies>
 </project>
