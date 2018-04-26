@@ -1,0 +1,41 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo Nothing to install, container image should have it all based on what we selected
+  pre_build:
+    commands:
+      - echo Just listing basic information about the environment
+      - which mvn
+      - mvn -version
+      - pwd
+  build:
+    commands:
+      - echo Build started on `date`
+	  - cd react-app/alchemy
+	  - npm run-script build
+	  - cd ../../cmad-export
+	  - mvn compile
+      - mvn package
+	  - cd ../
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Working on creating the tar ball with the WAR and AppSpec file for CodeDeploy
+      - mkdir appfiles
+      - cd appfiles
+      - cp ../cmad-export/target/cmad-00-0.0.1-SNAPSHOT.war .
+      - cp ../appspec.yml .
+      - ls -al
+      - tar -zcvf ../cmad-export/target/blog.tar.gz *.*
+artifacts:
+  files:
+# IMPORTANT
+# You have to use the tar.gz if you are manually executing CodeDeploy
+#    - cmad-export/target/blog.tar.gz
+# Use the individual files if you are using the CodeDeploy from CodePipeline
+# Reason is pipeline does not untar and errors out saying that the appspec file is not there
+    - appfiles/appspec.yml
+    - appfiles/cmad-00-0.0.1-SNAPSHOT.war
+  discard-paths: yes
