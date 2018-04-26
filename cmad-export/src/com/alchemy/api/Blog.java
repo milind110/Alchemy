@@ -18,16 +18,14 @@ public class Blog {
 	@Id
 	@JsonSerialize(using = CustomObjIdSerializer.class)
 	private ObjectId objectId;
+	private String userId;
 	private String title;
 	private String contents;
 	private String tags;
 	private int likes;
 
 	private Date createdOn;
-	
-	@Reference
-	private User author;
-	
+		
 	@Reference
 	private List<Comment> comments = new ArrayList<Comment>();
 
@@ -35,9 +33,8 @@ public class Blog {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Blog(User author, String title) {
+	public Blog(String title) {
 		super();
-		this.author = author;
 		this.title = title;
 	}
 
@@ -73,12 +70,12 @@ public class Blog {
 		this.likes = likes;
 	}
 	
-	public User getAuthor() {
-		return author;
+	public String getAuthorId() {
+		return userId;
 	}
 
-	public void setAuthor(User author) {
-		this.author = author;
+	public void setAuthorId(String userId) {
+		this.userId = userId;
 	}
 	
 	public Date getcreatedOn() {
@@ -111,7 +108,7 @@ public class Blog {
 
 	@Override
 	public String toString() {
-		return "@" + author.getName() + " " + title + " { " + tags + " }";
+		return "@userID: " + userId + " " + title + " { " + tags + " }";
 	}
 	
 }

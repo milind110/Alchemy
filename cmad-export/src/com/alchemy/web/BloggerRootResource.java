@@ -47,6 +47,7 @@ public class BloggerRootResource extends HttpServlet {
 	@Path("/blog")
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response getBlog() {
+		System.out.println("BloggerRootResource doing getblogs: ");
 		return Response.ok().entity(blogger.searchBlog(null)).build();
 	}
 
@@ -65,8 +66,8 @@ public class BloggerRootResource extends HttpServlet {
 		
 		System.out.println("BloggerRootResource addBlog userId: "+ userId);
 		System.out.println("BloggerRootResource addBlog title: "+ blog.getTitle());
-		User author = blogger.searchUser(userId);
-		blog.setAuthor(author);
+		//User author = blogger.searchUser(userId);
+		blog.setAuthorId(userId);
 		blogger.addBlog(blog);
 		UriBuilder uriBuilder = uriInfo.getAbsolutePathBuilder();
 		uriBuilder.path(blog.getObjectId().toHexString());

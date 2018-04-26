@@ -19,6 +19,7 @@ public class BlogDao extends BasicDAO<Blog, ObjectId> implements IBlogDao {
 
 	@Override
 	public List<Blog> getBlogs() {
+		System.out.println("BlogDao: Doing getBlogs");
 		return find().asList();
 	}
 
