@@ -7,6 +7,8 @@
 	<packaging>war</packaging>
 	<description>Alchemy project</description>
 	<properties>
+	    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<java.version>1.8</java.version>
 		<jersey2.version>2.22.2</jersey2.version>
 		<jaxrs.version>2.0.1</jaxrs.version>
 	</properties>
@@ -81,7 +83,7 @@
 		<dependency>
   			<groupId>org.glassfish.jersey.media</groupId>
   			<artifactId>jersey-media-json-jackson</artifactId>
-  			<scope>runtime</scope>
+  			<scope>compile</scope>
   			<version>2.27</version>
 		</dependency>			
 	</dependencies>
