@@ -38,6 +38,7 @@ public class AppManager {
 	}
 	
 	public static AppManager getInstance() {
+		System.out.println("doing getinstance");
 		if (inst == null) {
 			inst = new AppManager();
 		}
