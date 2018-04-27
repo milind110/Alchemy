@@ -1,6 +1,7 @@
 package com.alchemy.api;
 
 import java.util.List;
+import com.alchemy.api.User;
 
 public interface ICommentDao {
 	

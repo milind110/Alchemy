@@ -6,7 +6,6 @@ import java.util.List;
 
 // TODO : what is this bson ?
 import org.bson.types.ObjectId;
-import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Reference;
@@ -15,8 +14,8 @@ import org.mongodb.morphia.annotations.Reference;
 public class Blog {
 	// TODO : should blog have a defined primary key Or use mongo generated ?
 	/* http://www.foobaracademy.com/morphia-hello-world-example/ recommends to use ObjectId */
-	@Id
-	@JsonSerialize(using = CustomObjIdSerializer.class)
+	
+	@Id		
 	private ObjectId objectId;
 	private String userId;
 	private String title;

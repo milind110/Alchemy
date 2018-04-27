@@ -5,10 +5,11 @@ import org.mongodb.morphia.Morphia;
 
 import com.alchemy.api.Blog;
 import com.alchemy.api.Comment;
+import com.alchemy.api.User;
 import com.alchemy.api.IBlogDao;
 import com.alchemy.api.ICommentDao;
 import com.alchemy.api.IUserDao;
-import com.alchemy.api.User;
+
 import com.mongodb.MongoClient;
 
 public class AppManager {

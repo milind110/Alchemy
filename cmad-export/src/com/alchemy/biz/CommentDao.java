@@ -8,7 +8,7 @@ import org.mongodb.morphia.dao.BasicDAO;
 import org.mongodb.morphia.query.Query;
 
 import com.alchemy.api.ICommentDao;
-import com.alchemy.api.Comment;
+import com.alchemy.api.*;
 import com.alchemy.api.Blog;
 import com.alchemy.api.User;
 

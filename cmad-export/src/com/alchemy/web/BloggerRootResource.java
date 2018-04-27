@@ -24,7 +24,7 @@ import org.bson.types.ObjectId;
 
 import com.alchemy.api.Blog;
 import com.alchemy.api.IBlogger;
-import com.alchemy.api.exceptions.BloggerException;
+import com.alchemy.api.exceptions.*;
 import com.alchemy.biz.Alchemy;
 import com.alchemy.api.User;
 
